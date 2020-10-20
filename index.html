@@ -602,13 +602,14 @@
             <a
               class="btn btn-outline-primary"
               href="#"
+              onclick="oldPost()"
               >Older</a
             >
             <a
-              class="btn btn-outline-secondary disabled"
+              class="btn btn-outline-secondary"
               href="#"
               tabindex="-1"
-              aria-disabled="true"
+              onclick="newPost()"
               >Newer</a
             >
           </nav>
@@ -745,6 +746,108 @@
           col.classList.add("col-md-12");
         });
       }
+
+      function removeLinks() {
+        document.querySelector(
+          "div.p-4:last-child>.list-unstyled"
+        ).innerHTML = "";
+      }
+
+      function trunc() {
+        const el = document.querySelectorAll(
+          ".blog-main > .blog-post > p"
+        );
+
+        el.forEach((p) => {
+          p.innerText = p.innerText.substring(
+            0,
+            50
+          );
+        });
+      }
+
+      function newPost() {
+        const parent = document.querySelector(
+          ".blog-main"
+        );
+
+        const post = document.createElement(
+          "div"
+        );
+
+        post.classList.add("blog-post");
+
+        post.innerHTML = `
+
+            <h2 class="blog-post-title">
+              Another blog post
+            </h2>
+            <p class="blog-post-meta">
+              October 20, 2020 by
+              <a href="#">Petras</a>
+            </p>
+
+            <p>
+              Cum sociis natoque penatibus et
+              magnis
+              <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu
+              leo quam. Pellentesque ornare sem
+              lacinia quam venenatis vestibulum.
+              Sed posuere consectetur est at
+              lobortis. Cras mattis consectetur
+              purus sit amet fermentum.
+            </p>
+            <blockquote>
+              <p>
+                Curabitur blandit tempus
+                porttitor.
+                <strong>Nullam quis risus eget urna
+                  mollis</strong>
+                ornare vel eu leo. Nullam id dolor
+                id nibh ultricies vehicula ut id
+                elit.
+              </p>
+            </blockquote>
+            <p>
+              Etiam porta
+              <em>sem malesuada magna</em> mollis
+              euismod. Cras mattis consectetur
+              purus sit amet fermentum. Aenean
+              lacinia bibendum nulla sed
+              consectetur.
+            </p>
+            <p>
+              Vivamus sagittis lacus vel augue
+              laoreet rutrum faucibus dolor
+              auctor. Duis mollis, est non commodo
+              luctus, nisi erat porttitor ligula,
+              eget lacinia odio sem nec elit.
+              Morbi leo risus, porta ac
+              consectetur ac, vestibulum at eros.
+            </p>
+
+        `;
+
+        parent.prepend(post);
+      }
+      function oldPost() {
+        const els = document.querySelectorAll(
+          ".blog-post"
+        );
+
+        els[els.length - 1].remove();
+      }
+
+      document
+        .querySelectorAll(".blog-post-meta > a")
+        .forEach((author) => {
+          author.addEventListener(
+            "mouseover",
+            () => {
+              alert(author.innerText);
+            }
+          );
+        });
     </script>
   </body>
 </html>
